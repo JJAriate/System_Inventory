@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f3fc;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .header {
+      background-color: #014a94;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .header img {
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    .header-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .line1, .line3 { font-size: 12px; }
+    .line2 { font-size: 16px; font-weight: bold; }
+
+    .login-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background-color: #eef4fa;
+      padding: 30px 25px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 320px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      color: #014a94;
+      margin-bottom: 20px;
+    }
+
+    .login-box label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .login-box input[type="text"],
+    .login-box input[type="password"],
+    .login-box select {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      border: 1px solid #999;
+      border-radius: 5px;
+      background-color: #f1f5ff;
+    }
+
+    .login-box input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      background-color: #014a94;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-box input[type="submit"]:hover {
+      background-color: #01336e;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .login-link a {
+      color: #014a94;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    #adminOptions {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SSS Header -->
+  <div class="header">
+    <img src="Pictures/sssanim2.gif" alt="SSS Logo">
+    <div class="header-text">
+      <div class="line1">Republic of the Philippines</div>
+      <div class="line2">SOCIAL SECURITY SYSTEM</div>
+      <div class="line3">PASAY - TAFT BRANCH</div>
+    </div>
+  </div>
+
+  <!-- Login Form -->
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Login</h2>
+      <form method="POST" action="login.php">
+        <!-- Admin: Username/Password Section -->
+        <div id="credentialsSection" style="display: none;">
+          <label for="username">Username:</label>
+          <input type="text" name="username" id="username">
+
+          <label for="password">Password:</label>
+          <input type="password" name="password" id="password">
+
+          <div style="margin-bottom: 15px; font-size: 13px;">
+            <input type="checkbox" id="showPassword" onclick="togglePassword()"> Show Password
+          </div>
+        </div>
+
+        <!-- Full Name Field -->
+        <div id="fullnameSection">
+          <label for="fullname">Full Name:</label>
+          <input type="text" name="fullname" id="fullname" required>
+        </div>
+
+        <!-- Department Dropdown -->
+        <label for="department">Department:</label>
+        <select name="department" id="department" onchange="updateForm()" required>
+          <option value="" disabled selected>Select department</option>
+          <option value="Admin">Admin</option>
+          <option value="AMS">AMS</option>
+          <option value="MSS">MSS</option>
+          <option value="Tellering">Tellering</option>
+          <option value="Medical">Medical</option>
+        </select>
+
+        <!-- Admin Action Dropdown -->
+        <div id="adminOptions">
+          <label for="adminAction">Admin Action:</label>
+          <select name="adminAction" id="adminAction" onchange="updateForm()">
+            <option value="StockOut">Stock Out</option>
+            <option value="Inventory">Inventory</option>
+           
+          </select>
+        </div>
+
+        <input type="submit" value="Login">
+      </form>
+
+      <div class="login-link" id="registerLink" style="display: none;">
+        Don't have an account? <a href="register.html">Register</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById("password");
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    }
+
+    function updateForm() {
+  const dept = document.getElementById("department").value;
+  const adminOptions = document.getElementById("adminOptions");
+  const credentials = document.getElementById("credentialsSection");
+  const fullname = document.getElementById("fullnameSection");
+  const adminAction = document.getElementById("adminAction");
+  const registerLink = document.getElementById("registerLink");
+
+  if (dept === "Admin") {
+    adminOptions.style.display = "block";
+
+    if (adminAction.value === "Inventory") {
+      credentials.style.display = "block";
+      fullname.style.display = "none";
+      registerLink.style.display = "block";
+
+      document.getElementById("username").required = true;
+      document.getElementById("password").required = true;
+      document.getElementById("fullname").required = false;
+    } else {
+      credentials.style.display = "none";
+      fullname.style.display = "block";
+      registerLink.style.display = "none";
+
+      document.getElementById("username").required = false;
+      document.getElementById("password").required = false;
+      document.getElementById("fullname").required = true;
+    }
+  } else {
+    adminOptions.style.display = "none";
+    credentials.style.display = "none";
+    fullname.style.display = "block";
+    registerLink.style.display = "none";
+
+    document.getElementById("username").required = false;
+    document.getElementById("password").required = false;
+    document.getElementById("fullname").required = true;
+  }
+}
+
+  </script>
+
+</body>
+</html>
