@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f1fc;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background-color: #014a94;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .header img {
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    .header-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .line1 {
+      font-size: 12px;
+    }
+
+    .line2 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .line3 {
+      font-size: 12px;
+    }
+
+    .login-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background-color: #eef4fa;
+      padding: 30px 25px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: 320px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      color: #014a94;
+      margin-bottom: 20px;
+    }
+
+    .login-box label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .login-box input,
+    .login-box select {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+
+    .login-box input[type="submit"] {
+      background-color: #014a94;
+      color: white;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+      transition: background-color 0.2s ease;
+    }
+
+    .login-box input[type="submit"]:hover {
+      background-color: #01336e;
+    }
+
+    .login-box .login-link {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .login-box .login-link a {
+      color: #014a94;
+      text-decoration: none;
+    }
+
+    .login-box .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <img src="Pictures/sssanim2.gif" alt="SSS Logo" />
+    <div class="header-text">
+      <div class="line1">Republic of the Philippines</div>
+      <div class="line2">SOCIAL SECURITY SYSTEM</div>
+      <div class="line3">PASAY - TAFT BRANCH</div>
+    </div>
+  </div>
+
+  <!-- Register Form -->
+  <div class="login-container">
+    <div class="login-box">
+      <h2>REGISTER</h2>
+      <form action="register.php" method="POST" onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" placeholder="Enter username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Enter password" required>
+
+        <label for="name">Full Name:</label>
+        <input type="text" name="name" id="name" placeholder="Enter full name" required>
+
+        <label for="department">Department:</label>
+        <select name="department" id="department" required>
+          <option value="">Select Department</option>
+          <option value="Admin">Admin</option>
+          <option value="MSS">MSS</option>
+          <option value="AMS">AMS</option>
+          <option value="Medical">Medical</option>
+          <option value="Tellering">Tellering</option>
+        </select>
+
+        <input type="submit" value="Register">
+      </form>
+
+      <div class="login-link">
+        Already have an account? <a href="login.html">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function validateForm() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const name = document.getElementById('name').value;
+      const dept = document.getElementById('department').value;
+
+      if (!username || !password || !name || !dept) {
+        alert('Please fill in all fields.');
+        return false;
+      }
+      return true;
+    }
+  </script>
+
+</body>
+</html>
